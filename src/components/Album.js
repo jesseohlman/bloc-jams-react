@@ -21,6 +21,15 @@ return(
     <section id = "album-info">
     <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
     <div className="album-details">
+   
+    <table id="song=list">
+    <tbody>
+    {this.state.album.songs.map((song, i)=>{
+        return <tr>{i+1}. {song.title} {song.duration}</tr>
+    })}
+    </tbody>
+    </table>
+    
     <h2 id="album-title">{this.state.album.title}</h2>
     <h3 className="artist">{this.state.album.artist}</h3>
     <div id="release-info">{this.state.album.releaseInfo}</div>
