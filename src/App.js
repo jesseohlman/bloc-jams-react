@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import {Route, Link} from 'react-router-dom';
 import Library from './components/Library';
 import Landing from './components/Landing';
