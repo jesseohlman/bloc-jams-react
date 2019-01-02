@@ -46,6 +46,13 @@ class Album extends Component{
         }
     }
 
+    mouseOver(song, i){
+        //if(this.state.isPlaying){
+            const play  =  "<span className=\"ion-play\"></span>";
+document.getElementById(i).innerHTML = play;
+//}
+    }
+
     render(){
 return(
     <section className="album">
@@ -56,12 +63,11 @@ return(
     <table id="song=list">
     <tbody>
     {this.state.album.songs.map((song, i)=>{
-        return <tr className='song' key={i} onClick={() => this.handleSongClick(song)}>
-        {i+1}. {song.title} {song.duration}</tr>
+        return <tr className="song" id={i} key={i} onClick={() => this.handleSongClick(song)} onMouseEnter={()=> this.mouseOver(song, i)}>
+        <span className="ion-play"></span>{i+1}. {song.title} {song.duration}</tr>
     })}
     </tbody>
     </table>
-
     <h2 id="album-title">{this.state.album.title}</h2>
     <h3 className="artist">{this.state.album.artist}</h3>
     <div id="release-info">{this.state.album.releaseInfo}</div>
