@@ -76,6 +76,14 @@ class Album extends Component{
         this.play();
     }
 
+    handleNextClick(){
+        const currentIndex = this.state.album.songs.indexOf(this.state.currentSong); //findIndex and indexOf work in this case
+        const newIndex = Math.min(this.state.album.songs.length, currentIndex + 1);
+        const newSong = this.state.album.songs[newIndex];
+        this.setSong(newSong);
+        this.play();
+    }
+
     render(){
 return(
     <section className="album">
@@ -94,7 +102,8 @@ return(
     <PlayerBar isPlaying={this.state.isPlaying} 
     currentSong={this.state.currentSong}
     handleSongClick={()=> this.handleSongClick(this.state.currentSong)}
-    handlePrevClick={() => this.handlePrevClick()}/>
+    handlePrevClick={() => this.handlePrevClick()}
+    handleNextClick={() => this.handleNextClick()}/>
     <h2 id="album-title">{this.state.album.title}</h2>
     <h3 className="artist">{this.state.album.artist}</h3>
     <div id="release-info">{this.state.album.releaseInfo}</div>
