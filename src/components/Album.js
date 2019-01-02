@@ -14,7 +14,8 @@ class Album extends Component{
         this.state = {
             album: album,
             currentSong: album.songs[0],
-            isPlaying: false
+            isPlaying: false,
+            isHovering: false
         };
 
         this.audioElement = document.createElement('audio');
@@ -47,10 +48,23 @@ class Album extends Component{
     }
 
     mouseOver(song, i){
-        //if(this.state.isPlaying){
-            const play  =  "<span className=\"ion-play\"></span>";
-document.getElementById(i).innerHTML = play;
-//}
+         this.setState({isHovering: i});
+    }
+
+    mouseLeave(){
+        this.setState({isHovering: false});
+    }
+
+    renderIcon(i){
+        if(i === this.state.isHovering){
+            if(this.state.isPlaying && this.state.album.songs.indexOf(this.state.currentSong) === i){
+            return <span className="ion-pause"> </span>
+            }else{
+            return <span className="ion-play"> </span>
+            }
+        } else{
+            return i+1 + "."
+        }
     }
 
     render(){
@@ -63,8 +77,8 @@ return(
     <table id="song=list">
     <tbody>
     {this.state.album.songs.map((song, i)=>{
-        return <tr className="song" id={i} key={i} onClick={() => this.handleSongClick(song)} onMouseEnter={()=> this.mouseOver(song, i)}>
-        <span className="ion-play"></span>{i+1}. {song.title} {song.duration}</tr>
+        return <tr className="song" key={i} onClick={() => this.handleSongClick(song)} onMouseEnter={()=> this.mouseOver(song, i)} onMouseLeave={() => this.mouseLeave()}>
+        {this.renderIcon(i)} {song.title} {song.duration}</tr>
     })}
     </tbody>
     </table>
