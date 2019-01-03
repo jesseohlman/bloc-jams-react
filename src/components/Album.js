@@ -95,7 +95,7 @@ return(
     <tbody>
     {this.state.album.songs.map((song, i)=>{
         return <tr className="song" key={i} onClick={() => this.handleSongClick(song)} onMouseEnter={()=> this.mouseOver(song, i)} onMouseLeave={() => this.mouseLeave()}>
-        {this.renderIcon(i)} {song.title} {song.duration}</tr>
+        <td>{this.renderIcon(i)}</td><td> {song.title}</td><td> {song.duration}</td></tr>
     })}
     </tbody>
     </table>
