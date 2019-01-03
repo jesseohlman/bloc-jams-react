@@ -18,6 +18,7 @@ class Album extends Component{
             isPlaying: false,
             isHovering: false,
             currentTime: 0,
+            currentVolume: .5,
             duration: album.songs[0].duration
         };
 
@@ -111,6 +112,26 @@ class Album extends Component{
         this.setState({currentTime: newTime });
     }
 
+    handleVolumeChange(e){
+        const newVolume = 1 * e.target.value;
+        this.audioElement.volume = newVolume;
+        this.setState({currentVolume: newVolume});
+    }
+
+    formatTime(time){
+       if(time){
+           var reduce = Math.round(time);
+           var mins = Math.floor(reduce/60);
+           var secs = reduce - (mins * 60);
+           var secStr = secs.toString();
+           if(secStr.length !== 2){
+            secStr = "0" + secStr;
+           } else {secStr = secStr}
+           var str = mins.toString() + ":" + secStr;
+           return str;
+       } else { return "-:--"}
+    }
+
     render(){
 return(
     <section className="album">
@@ -122,7 +143,7 @@ return(
     <tbody>
     {this.state.album.songs.map((song, i)=>{
         return <tr className="song" key={i} onClick={() => this.handleSongClick(song)} onMouseEnter={()=> this.mouseOver(song, i)} onMouseLeave={() => this.mouseLeave()}>
-        <td>{this.renderIcon(i)}</td><td> {song.title}</td><td> {song.duration}</td></tr>
+        <td>{this.renderIcon(i)}</td><td> {song.title}</td><td> {this.formatTime(song.duration)}</td></tr>
     })}
     </tbody>
     </table>
@@ -132,6 +153,9 @@ return(
     handlePrevClick={() => this.handlePrevClick()}
     handleNextClick={() => this.handleNextClick()}
     handleTimeChange={(e) => this.handleTimeChange(e)}
+    handleVolumeChange={(e)=> this.handleVolumeChange(e)}
+    formatTime={(time)=> this.formatTime(time)}
+    currentVolume={this.state.currentVolume}
     duration={this.audioElement.duration}
     currentTime={this.audioElement.currentTime}/>
     <h2 id="album-title">{this.state.album.title}</h2>
