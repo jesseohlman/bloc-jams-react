@@ -16,11 +16,32 @@ class Album extends Component{
             album: album,
             currentSong: album.songs[0],
             isPlaying: false,
-            isHovering: false
+            isHovering: false,
+            currentTime: 0,
+            duration: album.songs[0].duration
         };
 
         this.audioElement = document.createElement('audio');
         this.audioElement.src = album.songs[0].audioSrc;
+    }
+
+    componentDidMount(){
+        this.eventListeners = {
+            timeupdate: e => {
+              this.setState({ currentTime: this.audioElement.currentTime });
+            },
+            durationchange: e => {
+              this.setState({ duration: this.audioElement.duration });
+            }
+          };
+          this.audioElement.addEventListener('timeupdate', this.eventListeners.timeupdate);
+          this.audioElement.addEventListener('durationchange', this.eventListeners.durationchange);
+    }
+
+    componentWillUnmount() {
+        this.audioElement.src = null;
+        this.audioElement.removeEventListener('timeupdate', this.eventListeners.timeupdate);
+        this.audioElement.removeEventListener('durationchange', this.eventListeners.durationchange);
     }
 
     play() {
@@ -84,6 +105,12 @@ class Album extends Component{
         this.play();
     }
 
+    handleTimeChange(e){
+        const newTime = this.audioElement.duration * e.target.value;
+        this.audioElement.currentTime = newTime;
+        this.setState({currentTime: newTime });
+    }
+
     render(){
 return(
     <section className="album">
@@ -103,7 +130,10 @@ return(
     currentSong={this.state.currentSong}
     handleSongClick={()=> this.handleSongClick(this.state.currentSong)}
     handlePrevClick={() => this.handlePrevClick()}
-    handleNextClick={() => this.handleNextClick()}/>
+    handleNextClick={() => this.handleNextClick()}
+    handleTimeChange={(e) => this.handleTimeChange(e)}
+    duration={this.audioElement.duration}
+    currentTime={this.audioElement.currentTime}/>
     <h2 id="album-title">{this.state.album.title}</h2>
     <h3 className="artist">{this.state.album.artist}</h3>
     <div id="release-info">{this.state.album.releaseInfo}</div>
