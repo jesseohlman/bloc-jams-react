@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import albumData from './../data/albums';
 import PlayerBar from './PlayerBar';
+import Image from 'react-image-resizer';
+
 
 class Album extends Component{
     constructor(props){
@@ -130,21 +132,32 @@ class Album extends Component{
        } else { return "-:--"}
     }
 
+
     render(){
 return(
     <section className="album">
-    <section id = "album-info">
-    <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title}/>
+    <div className="columns is-mobile is-centered is-full">
+    <figure className="image">
+    <Image src={this.state.album.albumCover} alt={this.state.album.title} height={325} width={325}/>
+    </figure>
     <div className="album-details">
    
-    <table id="song=list">
-    <tbody>
+    <section className="section">
+      <div className="">
+      <div className="column is-narrow">
+    <table className="table">
+    <tbody >
     {this.state.album.songs.map((song, i)=>{
         return <tr className="song" key={i} onClick={() => this.handleSongClick(song)} onMouseEnter={()=> this.mouseOver(song, i)} onMouseLeave={() => this.mouseLeave()}>
         <td>{this.renderIcon(i)}</td><td> {song.title}</td><td> {this.formatTime(song.duration)}</td></tr>
     })}
     </tbody>
     </table>
+    </div>
+    </div>
+    </section>
+    </div>
+    </div>
     <PlayerBar isPlaying={this.state.isPlaying} 
     currentSong={this.state.currentSong}
     handleSongClick={()=> this.handleSongClick(this.state.currentSong)}
@@ -159,8 +172,6 @@ return(
     <h2 id="album-title">{this.state.album.title}</h2>
     <h3 className="artist">{this.state.album.artist}</h3>
     <div id="release-info">{this.state.album.releaseInfo}</div>
-    </div>
-    </section>
     </section>
 );
 }

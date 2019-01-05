@@ -10,17 +10,16 @@ class Library extends React.Component {
     }
     render(){
         return (
-            <section className="library">  
+            <section className="column">  
         {
             this.state.albums.map((album, index)=> 
             <Link to={`/album/${album.slug}`} key={index}>
-            <figure className="image is-128x128">
+            <figure className="image is-128x128 container">
             <img className="is-rounded"src={album.albumCover} alt={album.title}/>
             </figure>
             <div className="title is-4">{album.title}</div>
             <div className="subtitle is-6">{album.artist}</div>
-            <div>{album.songs.length}</div>
-            {album.title}
+            <div>songs: {album.songs.length}</div><br></br>
             </Link>
             
             )
