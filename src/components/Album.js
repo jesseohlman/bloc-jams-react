@@ -81,7 +81,7 @@ class Album extends Component{
     }
 
     renderIcon (i){
-        if(i===this.state.isHovering){
+        if(i===this.state.isHovering && !this.state.isPlaying){
             return <span className="ion-play"> </span>
         } else if (this.state.isPlaying && this.state.album.songs.indexOf(this.state.currentSong) === i){
             return <span className="ion-pause"> </span>
