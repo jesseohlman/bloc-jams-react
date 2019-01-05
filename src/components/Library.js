@@ -14,9 +14,11 @@ class Library extends React.Component {
         {
             this.state.albums.map((album, index)=> 
             <Link to={`/album/${album.slug}`} key={index}>
-            <img src={album.albumCover} alt={album.title}/>
-            <div>{album.title}</div>
-            <div>{album.artist}</div>
+            <figure className="image is-128x128">
+            <img className="is-rounded"src={album.albumCover} alt={album.title}/>
+            </figure>
+            <div className="title is-4">{album.title}</div>
+            <div className="subtitle is-6">{album.artist}</div>
             <div>{album.songs.length}</div>
             {album.title}
             </Link>

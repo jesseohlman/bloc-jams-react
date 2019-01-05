@@ -9,7 +9,7 @@ class PlayerBar extends Component {
             <button id = "previous">
             <span className="ion-skip-backward" onClick={this.props.handlePrevClick}></span>
             </button>
-            <button id="play-pause" onClick={this.props.handleSongClick}>
+            <button className="button is-small is-rounded" onClick={this.props.handleSongClick}>
             <span className={this.props.isPlaying ? 'ion-pause' : 'ion-play'}></span>
             </button>
             <button id="next">
