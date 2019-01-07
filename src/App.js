@@ -11,9 +11,9 @@ class App extends Component {
       <div className="App">
       <header>
         <div className="columns is-centered is-full">
-        <nav className="navbar">
-        <Link to='/' className="navbar-item has-text-primary">Landing</Link>
-        <Link to='/library' className="navbar-item has-text-primary">Library</Link>
+        <nav className="navbar has-background-light is-full">
+        <Link to='/' className="nav navbar-item has-text-primary navbar-start">Home</Link>
+        <Link to='/library' className="nav navbar-item has-text-primary navbar-end">Library</Link>
         </nav>
         </div>
 <h1 className="title has-text-centered is-2 has-text-success">Bloc Jams</h1>
